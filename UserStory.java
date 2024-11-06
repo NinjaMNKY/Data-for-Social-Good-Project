@@ -1,12 +1,12 @@
 public class UserStory{
 
-private Game[] games;
+private Game[] gamesArray;
 /*
   * Reads the data from titlefile, scorefile, and
 * genrefile to initialize the 1D array answers
 */
   public UserStory(String titlesFile, String scoreFile, String genreFile){
-games= createGames(titlesFile, scoreFile, genreFile);
+gamesArray= createGames(titlesFile, scoreFile, genreFile);
   }
 /*
 *this creates a game object using data from tiltle.txt, score.txt, and genre.txt
@@ -23,19 +23,27 @@ for (int i= 0; i < tempGames.length; i++){
 return tempGames;
   }
  /*
- *This returns an array of all of the games with the same specified genre.
+ *This returns an array of all of the gamesArray with the same specified genre.
  */
 public Game[] getGenreGame(String targetGenre) {
-    Game[] genreGames = new Game[games.length];
+    // Find the number of matching gamesArray
     int count = 0;
-    for (Game game : games) {
+    for (Game game : gamesArray) {
         if (game.getGenre().equals(targetGenre)) {
-            genreGames[count++] = game;
+            count++;
         }
     }
-    Game[] result = new Game[count];
-    System.arraycopy(genreGames, 0, result, 0, count);
-    return result;
+    // Creates an array for the matching games with the same genre
+    Game[] genreGames = new Game[count];
+    int index = 0;
+
+    for (Game game : gamesArray) {
+        if (game.getGenre().equals(targetGenre)) {
+  genreGames[index++] = game;
+ System.out.println(game); // Print each matching game object 
+   }
+    }
+    return genreGames;
 }
 /*
 *This counts the number of times a the target genre shows up in the list
@@ -43,7 +51,7 @@ public Game[] getGenreGame(String targetGenre) {
   public int countGenre(String targetGenre) {
     int count = 0;
 
-    for (Game response : games) {
+    for (Game response : gamesArray) {
      if (response.getGenre().equals(targetGenre)) {
         count++;
       }
@@ -59,7 +67,7 @@ public Game[] getGenreGame(String targetGenre) {
 public String toString(){
   String result = "";
   
-    for (Game game  : games) {
+    for (Game game  : gamesArray) {
       result += game;
     }
     return result;
